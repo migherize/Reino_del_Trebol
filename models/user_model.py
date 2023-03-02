@@ -53,3 +53,21 @@ class Admission(pydantic.BaseModel):
         if not re.match("^[0-9]{2}$", str(v)):
             raise ValueError("El campo debe contener solo números de 2 dígitos")
         return v
+
+    @pydantic.validator("magical_affinity")
+    # pylint: disable=no-self-argument
+    def magical_affinity_verify_value(cls, v):
+        """
+        Solo puede contener los siguientes valores:
+            ▪ Oscuridad
+            ▪ Luz
+            ▪ Fuego
+            ▪ Agua
+            ▪ Viento
+            ▪ Tierra
+        """
+        affinity = set(["Oscuridad", "Luz", "Fuego", "Agua", "Viento", "Tierra"])
+        for valor in v:
+            if valor in affinity:
+                raise ValueError(f"El valor {valor} no está permitido")
+        return v
