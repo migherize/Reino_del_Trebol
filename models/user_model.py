@@ -6,16 +6,41 @@ mail: migherize@gmail.com
 """
 
 import re
+from typing import List, Tuple
 
 # pylint: disable=no-name-in-module
 from pydantic import BaseModel, validator
 
 
+class Grimorios(BaseModel):
+    """
+    Clase que representa los niveles de Grimorios
+
+    Niveles de Grimorios:
+        ▪ Sinceridad - Trébol de 1 hoja.
+        ▪ Esperanza - Trébol de 2 hojas.
+        ▪ Amor - Trébol de 3 hojas.
+        ▪ Buena Fortuna - Trébol de 4 hojas.
+        ▪ Desesperación - Trébol de 5 hojas.
+
+    Atributos:
+        ▪ Lista [Tuplas[]]: una lista de tuplas con los Niveles de Grimorios.
+
+    """
+
+    tipos: List[Tuple[str, str]]
+
+
 class Admission(BaseModel):
-    """Solicitud de ingreso.
+    """
+    Clase que representa uan solicitud de ingreso para la admission a la academia.
 
-    Objeto para solicitar la admission a la academia.
-
+    Atributos:
+        ▪ Nombre (solo letras, máximo 20 caracteres).
+        ▪ Apellido (solo letras, máximo 20 caracteres).
+        ▪ Identificación (números y letras, máximo 10 caracteres).
+        ▪ Edad (solo números, 2 dígitos).
+        ▪ Afinidad Mágica (mencionadas anteriormente).
     """
 
     name: str
@@ -59,7 +84,8 @@ class Admission(BaseModel):
     @validator("magical_affinity")
     # pylint: disable=no-self-argument
     def magical_affinity_verify_value(cls, value):
-        """
+        """Validar Afinidad magica
+
         Solo puede contener los siguientes valores:
             ▪ Oscuridad
             ▪ Luz
