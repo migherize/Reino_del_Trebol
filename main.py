@@ -21,7 +21,7 @@ def application_for_admission():
     return {"Application": "Admission Successful!"}
 
 @clover_kingdom.put("/update-admission")
-def update_request():
+def update_admission():
     """ Actualizar solicitud de ingreso.
 
     Actualiza la solicitud de ingreso a la academia de magia, es decir, 
