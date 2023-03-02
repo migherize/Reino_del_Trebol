@@ -43,3 +43,13 @@ class Admission(pydantic.BaseModel):
                 "El campo debe contener máximo 10 caracteres alfanuméricos."
             )
         return v
+
+    @pydantic.validator("old")
+    # pylint: disable=no-self-argument
+    def old_only_number_and_size_two(cls, v):
+        """
+        Solo numeros 2 digitos (00-99)
+        """
+        if not re.match("^[0-9]{2}$", str(v)):
+            raise ValueError("El campo debe contener solo números de 2 dígitos")
+        return v
