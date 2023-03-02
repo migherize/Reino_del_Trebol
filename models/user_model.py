@@ -6,10 +6,12 @@ mail: migherize@gmail.com
 """
 
 import re
-import pydantic
+
+# pylint: disable=no-name-in-module
+from pydantic import BaseModel, validator
 
 
-class Admission(pydantic.BaseModel):
+class Admission(BaseModel):
     """Solicitud de ingreso.
 
     Objeto para solicitar la admission a la academia.
@@ -22,41 +24,41 @@ class Admission(pydantic.BaseModel):
     old: int
     magical_affinity: str
 
-    @pydantic.validator("name", "surname")
+    @validator("name", "surname")
     # pylint: disable=no-self-argument
-    def name_not_number_and_size_twenty(cls, v):
+    def name_not_number_and_size_twenty(cls, value):
         """
         Nombre debe ser solo letras y maximo 20 caracteres.
         """
-        if not re.match("^[^0-9]+$", v) or len(v) > 20:
+        if not re.match("^[^0-9]+$", value) or len(value) > 20:
             raise ValueError("El campo debe contener maximo 20 caracteres solo letras.")
-        return v
+        return value
 
-    @pydantic.validator("id")
+    @validator("id")
     # pylint: disable=no-self-argument
-    def id_alphanumeric_and_size_ten(cls, v):
+    def id_alphanumeric_and_size_ten(cls, value):
         """
         Identificador debe ser alphanumerico (letras y numeros) y maximo 10 caracteres.
         """
-        if not re.match("^[a-zA-Z0-9]{0,10}$", v):
+        if not re.match("^[a-zA-Z0-9]{0,10}$", value):
             raise ValueError(
                 "El campo debe contener máximo 10 caracteres alfanuméricos."
             )
-        return v
+        return value
 
-    @pydantic.validator("old")
+    @validator("old")
     # pylint: disable=no-self-argument
-    def old_only_number_and_size_two(cls, v):
+    def old_only_number_and_size_two(cls, value):
         """
         Solo numeros 2 digitos (00-99)
         """
-        if not re.match("^[0-9]{2}$", str(v)):
+        if not re.match("^[0-9]{2}$", str(value)):
             raise ValueError("El campo debe contener solo números de 2 dígitos")
-        return v
+        return value
 
-    @pydantic.validator("magical_affinity")
+    @validator("magical_affinity")
     # pylint: disable=no-self-argument
-    def magical_affinity_verify_value(cls, v):
+    def magical_affinity_verify_value(cls, value):
         """
         Solo puede contener los siguientes valores:
             ▪ Oscuridad
@@ -67,7 +69,7 @@ class Admission(pydantic.BaseModel):
             ▪ Tierra
         """
         affinity = set(["Oscuridad", "Luz", "Fuego", "Agua", "Viento", "Tierra"])
-        for valor in v:
+        for valor in value:
             if valor in affinity:
                 raise ValueError(f"El valor {valor} no está permitido")
-        return v
+        return value
