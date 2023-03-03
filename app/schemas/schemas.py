@@ -10,7 +10,6 @@ from typing import List, Tuple
 
 # pylint: disable=no-name-in-module
 from pydantic import BaseModel, validator
-
 import app.utils.constants as constants
 
 
@@ -107,3 +106,24 @@ class Admission(BaseModel):
         if not value in affinity:
             raise ValueError(f"El valor {value} no está permitido")
         return value
+
+
+class ResultJson(BaseModel):
+    """
+    clase para construir la salida de los endpoint en formato JSON.
+    """
+
+    name: str
+    magical_affinity: str
+    status: str
+
+    def show_json(self) -> dict:
+        """
+        funcion para retornar salida a los endpoint.
+        """
+        json = {
+            "name": self.name,
+            "magical_affinity": self.magical_affinity,
+            "status": self.status,
+        }
+        return json

@@ -6,10 +6,11 @@ mail: migherize@gmail.com
 """
 
 import logging
-from fastapi import APIRouter, Depends
+import json
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.schemas import schemas
-from app.models import models_db, database
+from app.models import models_db, database, crud
 import app.utils.constants as constants
 
 logging.basicConfig(
@@ -27,7 +28,7 @@ clover_kingdom = APIRouter(
 @clover_kingdom.post("/send-admission")
 def application_for_admission(
     user: schemas.Admission, db_conn: Session = Depends(database.get_db)
-):
+) -> dict:
     """
     Endpoint que envia la solicitud de ingreso a la academia de magia.
 
@@ -59,34 +60,37 @@ def application_for_admission(
     """
     fullname = f"{user.name} {user.surname}"
     logging.info("Nombre: %s", fullname)
-    user_aplicant = models_db.Applicant(
-        name=user.name,
-        surname=user.surname,
-        id=user.id,
-        old=user.old,
-        magical_affinity=user.magical_affinity,
-        status=constants.STATUS_INPUT,
-    )
-    db_conn.add(user_aplicant)
-    db_conn.commit()
 
-    result = {
-        "id": user.id,
-        "nombre_completo": fullname,
-        "edad": user.old,
-        "Afinidad Magica": user.magical_affinity,
-    }
-    return result
+    try:
+        db_item = crud.create_user(db_conn, user)
+        logging.info("db: %s", db_item)
+
+        result = schemas.ResultJson(
+            name=fullname,
+            magical_affinity=str(user.magical_affinity),
+            status=constants.STATUS_PENDIND,
+        )
+        my_json = result.show_json()
+        return my_json
+
+    except Exception as exc:
+        raise HTTPException(
+            status_code=400,
+            detail=json.dumps({"error": "Ocurrio un error. ID Aplicante ya existe."}),
+        ) from exc
 
 
-@clover_kingdom.put("/update-admission")
-def update_admission():
+@clover_kingdom.put("/update-admission/{user_id}")
+def update_admission(user_id: str, db_conn: Session = Depends(database.get_db)):
     """Actualizar solicitud de ingreso.
 
     Actualiza la solicitud de ingreso a la academia de magia, es decir,
     la actualizacion del registro del estudiante a la academia.
 
     """
+    db_item = crud.get_user(db_conn, user_id)
+    logging.info("Nombre: %s", db_item.name)
+
     return {"Application": "Update Successful"}
 
 
