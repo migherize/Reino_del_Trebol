@@ -8,6 +8,8 @@ uvicorn = "*"
 fastapi = {extras = ["all"], version = "*"}
 pydantic = "*"
 sqlalchemy = "*"
+python-dotenv = "*"
+pymysql = "*"
 
 [dev-packages]
 black = "*"

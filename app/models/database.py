@@ -17,9 +17,22 @@ eng = (
     + constants.PASSWORDDB
     + "@"
     + constants.NAME_SERVICEDB
+    + ":"
+    + constants.PORT
     + "/"
     + constants.NAMEDB
 )
 engine = create_engine(eng)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
+
+
+def get_db():
+    """
+    conexion database
+    """
+    database = SessionLocal()
+    try:
+        yield database
+    finally:
+        database.close()
