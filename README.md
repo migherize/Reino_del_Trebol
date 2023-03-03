@@ -59,6 +59,8 @@ no se debe asignar Grimorio.
 ## Requisitos
 1. Python 3.10.7
 2. FastApi 0.92.0
+3. pydantic 1.10.5
+4. SQLAlchemy 2.0.4
 ## Instalación
 1. Clonar el repositorio
     ```
