@@ -120,13 +120,14 @@ def update_status_admission(
 def read_all_application(db_conn: Session = Depends(database.get_db)) -> list:
     """Consultar todas las solicitudes.
 
-    Funciona para traer todos las solicitudes de los estudiantes a registrar.
+    Funciona para traer todas las solicitudes de registro.
 
     Retorna:
 
         list: Un lista con todos los estudiantes de la academia.
     """
     data = db_conn.query(models_db.Applicant).all()
+
     return data
 
 
@@ -140,11 +141,15 @@ def read_assing_grimoire():
     return {"Application": "Assing Grimoire"}
 
 
-@clover_kingdom.delete("/delete")
-def delete_admission():
+@clover_kingdom.delete("/delete/{user_id}")
+def delete_admission(user_id: str, db_conn: Session = Depends(database.get_db)) -> dict:
     """Eliminar solicitud de ingreso.
 
     Borrar una solicitud de ingreso de un estudiante.
 
     """
-    return {"Application": "Delete student"}
+    db_item = crud.delete_admission(db_conn, user_id)
+    logging.info("Eliminado: %s", db_item.id)
+
+    if db_item:
+        return {"Academia": f"Solicitud {db_item.id} eliminada."}

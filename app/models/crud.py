@@ -11,19 +11,23 @@ from app.schemas import schemas
 import app.utils.constants as constants
 
 
+def search_and_verify(db_conn: Session, user_id: str):
+    item = (
+        db_conn.query(models_db.Applicant)
+        .filter(models_db.Applicant.id == user_id)
+        .first()
+    )
+    if item is None:
+        raise HTTPException(status_code=404, detail="Id no encontrado")
+
+    return item
+
+
 def update_user(db_conn: Session, user: schemas.Admission):
     """
     Actualizar la solicitud de registro.
     """
-    item = (
-        db_conn.query(models_db.Applicant)
-        .filter(models_db.Applicant.id == user.id)
-        .first()
-    )
-
-    if item is None:
-        raise HTTPException(status_code=404, detail="Item no encontrado")
-
+    item = search_and_verify(db_conn, user.id)
     item.name = user.name
     item.surname = user.surname
     item.old = user.old
@@ -56,19 +60,21 @@ def create_user(db_conn: Session, user: schemas.Admission):
 
 def update_status(db_conn: Session, user_id: str):
     """
-    Actualizar la solicitud de registro.
+    Actualizar el estatus de la solicitud de registro.
     """
-    item = (
-        db_conn.query(models_db.Applicant)
-        .filter(models_db.Applicant.id == user_id)
-        .first()
-    )
-
-    if item is None:
-        raise HTTPException(status_code=404, detail="Solicitud no encontrada")
-
+    item = search_and_verify(db_conn, user_id)
     item.status = constants.STATUS_UPDATE
     db_conn.add(item)
     db_conn.commit()
     db_conn.refresh(item)
+    return item
+
+
+def delete_admission(db_conn: Session, user_id: str):
+    """
+    Eliminar una solicitud de registro.
+    """
+    item = search_and_verify(db_conn, user_id)
+    db_conn.delete(item)
+    db_conn.commit()
     return item
