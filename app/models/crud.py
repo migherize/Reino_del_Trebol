@@ -52,3 +52,23 @@ def create_user(db_conn: Session, user: schemas.Admission):
     db_conn.commit()
 
     return user_aplicant
+
+
+def update_status(db_conn: Session, user_id: str):
+    """
+    Actualizar la solicitud de registro.
+    """
+    item = (
+        db_conn.query(models_db.Applicant)
+        .filter(models_db.Applicant.id == user_id)
+        .first()
+    )
+
+    if item is None:
+        raise HTTPException(status_code=404, detail="Solicitud no encontrada")
+
+    item.status = constants.STATUS_UPDATE
+    db_conn.add(item)
+    db_conn.commit()
+    db_conn.refresh(item)
+    return item

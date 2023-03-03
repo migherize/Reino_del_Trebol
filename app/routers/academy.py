@@ -94,17 +94,26 @@ def update_admission(
 
     logging.info("Nombre: %s", db_item.id)
 
-    return {"Application": "Update Successful"}
+    return {"Academia": f" Solicitud {db_item.id} actualiza."}
 
 
-@clover_kingdom.put("/update-status-admission")
-def update_status_admission():
+@clover_kingdom.put("/update-status-admission/{user_id}")
+def update_status_admission(
+    user_id: str, db_conn: Session = Depends(database.get_db)
+) -> dict:
     """Actualizar estatus de solicitud.
 
     Actualiza el estatus de la solicitud del estudiante a la academia.
 
     """
-    return {"Application": "Update Successful"}
+    db_item = crud.update_status(db_conn, user_id)
+
+    logging.info("Status: %s", db_item.status)
+
+    if db_item.status:
+        return {
+            "Academia": f"Estudiante {db_item.id} estatu actualizado a {constants.STATUS_ACCEPTED}"
+        }
 
 
 @clover_kingdom.get("/all-request-read-all-application")

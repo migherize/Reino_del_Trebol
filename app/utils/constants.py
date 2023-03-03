@@ -20,6 +20,7 @@ PORT = os.getenv("port")
 
 # Constantes
 STATUS_INPUT = False
+STATUS_UPDATE = True
 STATUS_PENDIND = "Pendiente"
 STATUS_ACCEPTED = "Acceptado"
 
