@@ -23,7 +23,7 @@ Los estudiantes tendrán una de las siguientes afinidades de magia:
 
 ### Instrucciones:
 
-  Para este requerimiento se requiere exponer un API Rest, construida con las herramientas
+Para este requerimiento se requiere exponer un API Rest, construida con las herramientas
 antes mencionadas.
 Deben exponerse a través de Postman o Swagger los endpoints necesarios para soportar
 las siguientes operaciones:
@@ -76,7 +76,8 @@ no se debe asignar Grimorio.
 1. Ejecutar el proyecto
 
     ```
-    uvicorn main:clover_kingdom --reload
+    cd app
+    uvicorn main:app --reload
     ```
 2. Acceder a http://127.0.0.1:8000/docs
 
