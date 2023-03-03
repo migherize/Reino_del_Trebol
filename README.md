@@ -78,8 +78,7 @@ no se debe asignar Grimorio.
 1. Ejecutar el proyecto
 
     ```
-    cd app
-    uvicorn main:app --reload
+    uvicorn app.main:app --reload
     ```
 2. Acceder a http://127.0.0.1:8000/docs
 

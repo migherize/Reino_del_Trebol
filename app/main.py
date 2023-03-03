@@ -6,7 +6,7 @@ mail: migherize@gmail.com
 """
 # main.py
 from fastapi import FastAPI
-from routers import academy
+from app.routers import academy
 
 app = FastAPI()
 
