@@ -11,6 +11,8 @@ from typing import List, Tuple
 # pylint: disable=no-name-in-module
 from pydantic import BaseModel, validator
 
+import app.utils.constants as constants
+
 
 class Grimorios(BaseModel):
     """
@@ -54,19 +56,11 @@ class Admission(BaseModel):
         Ejemplo para el modelo de Admission y para swagger FastApi
         """
 
-        schema_extra = {
-            "example": {
-                "name": "Miguel",
-                "surname": "Herize",
-                "id": "migher25",
-                "old": 25,
-                "magical_affinity": "Oscuridad",
-            }
-        }
+        schema_extra = {"example": constants.dict_example}
 
     @validator("name", "surname")
     # pylint: disable=no-self-argument
-    def name_not_number_and_size_twenty(cls, value):
+    def name_not_number_and_size_twenty(cls, value: str) -> str:
         """
         Nombre debe ser solo letras y maximo 20 caracteres.
         """
@@ -76,7 +70,7 @@ class Admission(BaseModel):
 
     @validator("id")
     # pylint: disable=no-self-argument
-    def id_alphanumeric_and_size_ten(cls, value):
+    def id_alphanumeric_and_size_ten(cls, value: str) -> str:
         """
         Identificador debe ser alphanumerico (letras y numeros) y maximo 10 caracteres.
         """
@@ -88,7 +82,7 @@ class Admission(BaseModel):
 
     @validator("old")
     # pylint: disable=no-self-argument
-    def old_only_number_and_size_two(cls, value):
+    def old_only_number_and_size_two(cls, value: int) -> int:
         """
         Solo numeros 2 digitos (00-99)
         """
@@ -98,7 +92,7 @@ class Admission(BaseModel):
 
     @validator("magical_affinity")
     # pylint: disable=no-self-argument
-    def magical_affinity_verify_value(cls, value):
+    def magical_affinity_verify_value(cls, value: str) -> str:
         """Validar Afinidad magica
 
         Solo puede contener los siguientes valores:
@@ -109,8 +103,7 @@ class Admission(BaseModel):
             ▪ Viento
             ▪ Tierra
         """
-        affinity = set(["Oscuridad", "Luz", "Fuego", "Agua", "Viento", "Tierra"])
-        for valor in value:
-            if valor in affinity:
-                raise ValueError(f"El valor {valor} no está permitido")
+        affinity = set(constants.list_affinity)
+        if not value in affinity:
+            raise ValueError(f"El valor {value} no está permitido")
         return value
