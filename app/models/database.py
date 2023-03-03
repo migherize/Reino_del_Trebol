@@ -11,7 +11,8 @@ import app.utils.constants as constants
 
 # connection to DB (orm = SQLAlchemy)
 eng = (
-    "mysql+pymysql://"
+    constants.DB
+    + "://"
     + constants.USERDB
     + ":"
     + constants.PASSWORDDB

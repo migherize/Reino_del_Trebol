@@ -11,6 +11,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Leer variables de entorno
+DB = os.getenv("DB")
 USERDB = os.getenv("userDB")
 PASSWORDDB = os.getenv("passwordDB")
 NAME_SERVICEDB = os.getenv("name_serviceDB")
