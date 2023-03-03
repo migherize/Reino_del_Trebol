@@ -7,10 +7,8 @@ mail: migherize@gmail.com
 
 import logging
 from fastapi import APIRouter, Depends
-from app.models import models_db, user_model, database
 from sqlalchemy.orm import Session
-
-from models import database
+from app.models import models_db, user_model, database
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
@@ -88,13 +86,13 @@ def update_status_admission():
 
 
 @clover_kingdom.get("/all-request-read-all-application")
-def read_all_application(db: Session = Depends(database.get_db)):
+def read_all_application(db_conn: Session = Depends(database.get_db)):
     """Consultar todas las solicitudes.
 
     Funciona para traer todos las solicitudes de los estudiantes a registrar.
 
     """
-    data = db.query(models_db.Applicant).all()
+    data = db_conn.query(models_db.Applicant).all()
     for aplicant in data:
         logging.info("Aplicantes: %s", aplicant)
     return {"Application": "All Application"}

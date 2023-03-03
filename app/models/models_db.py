@@ -6,7 +6,7 @@ mail: migherize@gmail.com
 """
 
 from sqlalchemy import Column, Integer, String
-from models.database import Base
+from app.models.database import Base
 
 
 class Applicant(Base):
