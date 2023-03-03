@@ -23,7 +23,9 @@ clover_kingdom = APIRouter(
 
 # Endpoint clover_kingdom
 @clover_kingdom.post("/send-admission")
-def application_for_admission(user: user_model.Admission):
+def application_for_admission(
+    user: user_model.Admission, db_conn: Session = Depends(database.get_db)
+):
     """
     Endpoint que envia la solicitud de ingreso a la academia de magia.
 
@@ -55,6 +57,16 @@ def application_for_admission(user: user_model.Admission):
     """
     fullname = f"{user.name} {user.surname}"
     logging.info("Nombre: %s", fullname)
+    user_aplicant = models_db.Applicant(
+        name=user.name,
+        surname=user.surname,
+        id=user.id,
+        old=user.old,
+        magical_affinity=user.magical_affinity,
+    )
+    db_conn.add(user_aplicant)
+    db_conn.commit()
+
     result = {
         "id": user.id,
         "nombre_completo": fullname,
