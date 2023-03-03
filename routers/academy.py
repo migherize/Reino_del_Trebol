@@ -5,7 +5,9 @@ author: Miguel Herize
 mail: migherize@gmail.com
 """
 
+import logging
 from fastapi import APIRouter
+from models import user_model
 
 clover_kingdom = APIRouter(
     prefix="/queries",
@@ -16,14 +18,40 @@ clover_kingdom = APIRouter(
 
 # Endpoint clover_kingdom
 @clover_kingdom.post("/send-admission")
-def application_for_admission():
-    """Enviar solicitud de ingreso.
+def application_for_admission(user: user_model.Admission):
+    """
+    Endpoint que envia la solicitud de ingreso a la academia de magia.
 
     Envia la solicitud de ingreso a la academia de magia, es decir,
     el registro del estudiante a la academia.
 
+    Parámetros:
+
+        user_application (dict): Un Diccionario con datos en formato JSON.
+            {
+                "name": "string",
+                "surname": "string",
+                "id": "string",
+                "old": "int",
+                "magical_affinity": "string",
+            }
+        User (dict): Un Diccionario con datos en formato JSON.
+            {
+                "name": "string",
+                "surname": "string",
+                "id": "string",
+                "old": "int",
+                "magical_affinity": "string",
+            }
+
+    Retorna:
+
+        str: Un string con el estatus del registro del estudiante.
     """
-    return {"Application": "Admission Successful!"}
+    fullname = f"{user.name} {user.surname}"
+    logging.info("Nombre: %s", fullname)
+    result = {"nombre_completo": fullname, "edad": user.old}
+    return result
 
 
 @clover_kingdom.put("/update-admission")

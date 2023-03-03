@@ -49,6 +49,21 @@ class Admission(BaseModel):
     old: int
     magical_affinity: str
 
+    class Config:
+        """
+        Ejemplo para el modelo de Admission y para swagger FastApi
+        """
+
+        schema_extra = {
+            "example": {
+                "name": "Miguel",
+                "surname": "Herize",
+                "id": "migher25",
+                "old": 25,
+                "magical_affinity": "Oscuridad",
+            }
+        }
+
     @validator("name", "surname")
     # pylint: disable=no-self-argument
     def name_not_number_and_size_twenty(cls, value):
