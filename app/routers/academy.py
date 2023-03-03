@@ -8,7 +8,8 @@ mail: migherize@gmail.com
 import logging
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from app.models import models_db, user_model, database
+from app.models import models_db, database
+from schemas import schemas
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
@@ -24,7 +25,7 @@ clover_kingdom = APIRouter(
 # Endpoint clover_kingdom
 @clover_kingdom.post("/send-admission")
 def application_for_admission(
-    user: user_model.Admission, db_conn: Session = Depends(database.get_db)
+    user: schemas.Admission, db_conn: Session = Depends(database.get_db)
 ):
     """
     Endpoint que envia la solicitud de ingreso a la academia de magia.

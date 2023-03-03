@@ -18,7 +18,13 @@ NAMEDB = os.getenv("nameBD")
 PORT = os.getenv("port")
 
 # Constantes
-
+list_grimorios = [
+    ("Sinceridad", "Trébol de 1 hoja"),
+    ("Esperanza", "Trébol de 2 hojas"),
+    ("Amor", "Trébol de 3 hojas"),
+    ("Buena Fortuna", "Trébol de 4 hojas"),
+    ("Desesperación", "Trébol de 5 hojas"),
+]
 list_affinity = ["Oscuridad", "Luz", "Fuego", "Agua", "Viento", "Tierra"]
 dict_example = {
     "name": "Miguel",
