@@ -10,6 +10,7 @@ pydantic = "*"
 sqlalchemy = "*"
 python-dotenv = "*"
 pymysql = "*"
+cryptography = "*"
 
 [dev-packages]
 black = "*"

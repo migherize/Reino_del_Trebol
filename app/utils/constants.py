@@ -18,6 +18,7 @@ NAMEDB = os.getenv("nameBD")
 PORT = os.getenv("port")
 
 # Constantes
+STATUS_INPUT = False
 list_grimorios = [
     ("Sinceridad", "Trébol de 1 hoja"),
     ("Esperanza", "Trébol de 2 hojas"),

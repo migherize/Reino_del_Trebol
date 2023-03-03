@@ -5,7 +5,7 @@ author: Miguel Herize
 mail: migherize@gmail.com
 """
 
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, Boolean
 from app.models.database import Base
 
 
@@ -20,3 +20,4 @@ class Applicant(Base):
     id = Column(String(10), primary_key=True)
     old = Column(Integer)
     magical_affinity = Column(String(20))
+    status = Column(Boolean, default=True)

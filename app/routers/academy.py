@@ -10,6 +10,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from app.schemas import schemas
 from app.models import models_db, database
+import app.utils.constants as constants
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
@@ -64,6 +65,7 @@ def application_for_admission(
         id=user.id,
         old=user.old,
         magical_affinity=user.magical_affinity,
+        status=constants.STATUS_INPUT,
     )
     db_conn.add(user_aplicant)
     db_conn.commit()
