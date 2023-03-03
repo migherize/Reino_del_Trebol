@@ -4,21 +4,35 @@ crud Clover Kingdom
 author: Miguel Herize
 mail: migherize@gmail.com
 """
+from fastapi import HTTPException
 from sqlalchemy.orm import Session
 from app.models import models_db
 from app.schemas import schemas
 import app.utils.constants as constants
 
 
-def get_user(db_conn: Session, user_id: str):
+def update_user(db_conn: Session, user: schemas.Admission):
     """
-    Consulta a la base de datos un usuario por su Id
+    Actualizar la solicitud de registro.
     """
-    return (
+    item = (
         db_conn.query(models_db.Applicant)
-        .filter(models_db.Applicant.id == user_id)
+        .filter(models_db.Applicant.id == user.id)
         .first()
     )
+
+    if item is None:
+        raise HTTPException(status_code=404, detail="Item no encontrado")
+
+    item.name = user.name
+    item.surname = user.surname
+    item.old = user.old
+    item.magical_affinity = user.magical_affinity
+
+    db_conn.add(item)
+    db_conn.commit()
+    db_conn.refresh(item)
+    return item
 
 
 def create_user(db_conn: Session, user: schemas.Admission):

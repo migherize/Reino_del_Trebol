@@ -80,16 +80,19 @@ def application_for_admission(
         ) from exc
 
 
-@clover_kingdom.put("/update-admission/{user_id}")
-def update_admission(user_id: str, db_conn: Session = Depends(database.get_db)):
+@clover_kingdom.put("/update-admission/")
+def update_admission(
+    user: schemas.Admission, db_conn: Session = Depends(database.get_db)
+) -> dict:
     """Actualizar solicitud de ingreso.
 
     Actualiza la solicitud de ingreso a la academia de magia, es decir,
     la actualizacion del registro del estudiante a la academia.
 
     """
-    db_item = crud.get_user(db_conn, user_id)
-    logging.info("Nombre: %s", db_item.name)
+    db_item = crud.update_user(db_conn, user)
+
+    logging.info("Nombre: %s", db_item.id)
 
     return {"Application": "Update Successful"}
 
