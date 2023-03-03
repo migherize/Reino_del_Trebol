@@ -9,6 +9,10 @@ import logging
 from fastapi import APIRouter
 from models import user_model
 
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+)
+
 clover_kingdom = APIRouter(
     prefix="/queries",
     tags=["Academia de Magia"],
@@ -50,7 +54,12 @@ def application_for_admission(user: user_model.Admission):
     """
     fullname = f"{user.name} {user.surname}"
     logging.info("Nombre: %s", fullname)
-    result = {"nombre_completo": fullname, "edad": user.old}
+    result = {
+        "id": user.id,
+        "nombre_completo": fullname,
+        "edad": user.old,
+        "Afinidad Magica": user.magical_affinity,
+    }
     return result
 
 
