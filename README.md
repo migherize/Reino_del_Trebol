@@ -174,6 +174,10 @@ no se debe asignar Grimorio.
 6. Base de datos: SQL / MySQL / Postgresql / MongoDB / CouchDB / Redis / MariaDB
 7. Postman (para pruebas).
 ## Instalación
+
+Nota: Si deseas realizar la Instalacion ve al siguiente enlace [docker-academy](https://github.com/migherize/Reino_del_Trebol/tree/feature/docker-academy)
+
+
 1. Clonar el repositorio
     ```
     git clone https://github.com/migherize/Reino_del_Trebol.git
