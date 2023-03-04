@@ -2,7 +2,7 @@
 
 Api construida con fastApi para simulador el mundo del Reino del Trebol, donde se requiere diseñar un sistema para una academia de magia.
 
-![FastApi](./diagrams/fastapi.png)
+![FastApi](https://fastapi.tiangolo.com/img/logo-margin/logo-teal.png)
 
 ### Ambiente: 
 
