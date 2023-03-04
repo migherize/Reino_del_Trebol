@@ -12,6 +12,9 @@ import app.utils.constants as constants
 
 
 def search_and_verify(db_conn: Session, user_id: str):
+    """
+    funcion para buscar la solicitud de registro y validarla.
+    """
     item = (
         db_conn.query(models_db.Applicant)
         .filter(models_db.Applicant.id == user_id)

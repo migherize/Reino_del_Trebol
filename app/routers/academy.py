@@ -15,7 +15,11 @@ from app.models import models_db, database, crud
 import app.utils.constants as constants
 
 logging.basicConfig(
-    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+    filename=constants.PATH_BITACORA,
+    encoding="utf-8",
+    filemode="a",
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s",
 )
 
 clover_kingdom = APIRouter(
@@ -59,6 +63,7 @@ def application_for_admission(
 
         str: Un string con el estatus del registro del estudiante.
     """
+    logging.info("### Solicitud de registro ###")
     fullname = f"{user.name} {user.surname}"
     logging.info("Nombre: %s", fullname)
 
@@ -97,9 +102,10 @@ def update_admission(
     la actualizacion del registro del estudiante a la academia.
 
     """
+    logging.info("### Actualizar una solicitud de registro ###")
     db_item = crud.update_user(db_conn, user)
 
-    logging.info("Nombre: %s", db_item.id)
+    logging.info("id: %s actualizada", db_item.id)
 
     return {"Academia": f" Solicitud {db_item.id} actualiza."}
 
@@ -113,8 +119,10 @@ def update_status_admission(
     Actualiza el estatus de la solicitud del estudiante a la academia.
 
     """
+    logging.info("### Actualizar estatus de solicitud de registro ###")
     db_item = crud.update_status(db_conn, user_id)
 
+    logging.info("id: %s", db_item.id)
     logging.info("Status: %s", db_item.status)
 
     if db_item.status:
@@ -133,7 +141,9 @@ def read_all_application(db_conn: Session = Depends(database.get_db)) -> list:
 
         list: Un lista con todos los estudiantes de la academia.
     """
+    logging.info("### Ver todas las solicitudes de registro ###")
     data = db_conn.query(models_db.Applicant).all()
+    logging.info("cantidad: %s", len(data))
 
     return data
 
@@ -147,7 +157,9 @@ def read_assing_grimoire(
     Ver asignacion de grimorios de la solicitud de ingreso.
 
     """
+    logging.info("### Consulta de Grimorio ###")
     db_item = crud.select_grimorio(db_conn, user_id)
+    logging.info("id: %s", db_item.id)
     logging.info("Grimorio: %s", db_item.grimorio)
 
     if db_item:
@@ -163,6 +175,7 @@ def delete_admission(user_id: str, db_conn: Session = Depends(database.get_db)) 
     Borrar una solicitud de ingreso de un estudiante.
 
     """
+    logging.info("### Eliminar Solicitud de ingreso ###")
     db_item = crud.delete_admission(db_conn, user_id)
     logging.info("Eliminado: %s", db_item.id)
 

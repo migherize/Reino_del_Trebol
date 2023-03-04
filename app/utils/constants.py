@@ -9,6 +9,7 @@ from dotenv import load_dotenv
 
 # Cargar .env
 load_dotenv()
+PATH_HOME = os.getcwd()
 
 # Leer variables de entorno
 DB = os.getenv("DB")
@@ -23,14 +24,9 @@ STATUS_INPUT = False
 STATUS_UPDATE = True
 STATUS_PENDIND = "Pendiente"
 STATUS_ACCEPTED = "Acceptado"
+PATH_BITACORA = os.path.join(PATH_HOME, "app/utils/bitacora.log")
 
-Tupla_grimorios = [
-    ("Sinceridad", "Trébol de 1 hoja"),
-    ("Esperanza", "Trébol de 2 hojas"),
-    ("Amor", "Trébol de 3 hojas"),
-    ("Buena Fortuna", "Trébol de 4 hojas"),
-    ("Desesperación", "Trébol de 5 hojas"),
-]
+
 list_affinity = ["Oscuridad", "Luz", "Fuego", "Agua", "Viento", "Tierra"]
 dict_example = {
     "name": "Miguel",
@@ -39,3 +35,22 @@ dict_example = {
     "old": 25,
     "magical_affinity": "Oscuridad",
 }
+
+"""
+    tupla de grimorios validos para la solicitud del registro.
+
+    Niveles de Grimorios:
+        ▪ Sinceridad - Trébol de 1 hoja.
+        ▪ Esperanza - Trébol de 2 hojas.
+        ▪ Amor - Trébol de 3 hojas.
+        ▪ Buena Fortuna - Trébol de 4 hojas.
+        ▪ Desesperación - Trébol de 5 hojas.
+
+"""
+Tupla_grimorios = [
+    ("Sinceridad", "Trébol de 1 hoja"),
+    ("Esperanza", "Trébol de 2 hojas"),
+    ("Amor", "Trébol de 3 hojas"),
+    ("Buena Fortuna", "Trébol de 4 hojas"),
+    ("Desesperación", "Trébol de 5 hojas"),
+]

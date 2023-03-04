@@ -6,30 +6,8 @@ mail: migherize@gmail.com
 """
 
 import re
-from typing import List, Tuple
-
-# pylint: disable=no-name-in-module
 from pydantic import BaseModel, validator
 import app.utils.constants as constants
-
-
-class Grimorios(BaseModel):
-    """
-    Clase que representa los niveles de Grimorios
-
-    Niveles de Grimorios:
-        ▪ Sinceridad - Trébol de 1 hoja.
-        ▪ Esperanza - Trébol de 2 hojas.
-        ▪ Amor - Trébol de 3 hojas.
-        ▪ Buena Fortuna - Trébol de 4 hojas.
-        ▪ Desesperación - Trébol de 5 hojas.
-
-    Atributos:
-        ▪ Tuple[str, str]: una lista de tuplas con string con los Niveles de Grimorios.
-
-    """
-
-    tipos: Tuple[str, str]
 
 
 class Admission(BaseModel):
