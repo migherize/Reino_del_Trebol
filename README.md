@@ -175,24 +175,54 @@ no se debe asignar Grimorio.
 7. Postman (para pruebas).
 ## Instalación
 
-Nota: Si deseas realizar la Instalacion ve al siguiente enlace [docker-academy](https://github.com/migherize/Reino_del_Trebol/tree/feature/docker-academy)
+#### Nota: Existen 2 formas de instalarlo: Entorno virtual o Docker.
 
+- #### Si deseas realizar la Instalacion ve al siguiente enlace [docker-academy](https://github.com/migherize/Reino_del_Trebol/tree/feature/docker-academy)
+
+
+- Procedemos a instalar con Entorno Virtual
 
 1. Clonar el repositorio
     ```
     git clone https://github.com/migherize/Reino_del_Trebol.git
-
     ```
 2. Instalar dependencias
+
+    Para ello debemos tener instalado el sistema de gestion de paquetes pip.
     ```
-    cd Reino_del_Trebol
-    pipenv install
-    pipenv install -r requirements.txt
+    pip install --upgrade pip
     ```
+    
+    Luego con un gestor de entornos virtuales construiremos un entorno virtual para el proyecto, con el gestor de tu preferencia.
+    
+    * Entorno con [Pipenv](https://pypi.org/project/pipenv/):
+
+        ```
+        pip install pipenv
+
+        cd Reino_del_Trebol
+        
+        pipenv install
+        
+        pipenv shell
+
+        pipenv install -r requirements.txt
+        ```
+
+    * Entorno con [Virtualenv](https://pypi.org/project/virtualenv/):
+        ```
+        python -m venv Reino_del_Trebol
+
+		source Reino_del_Trebol/bin/activate
+
+        cd Reino_del_Trebol
+        
+        pip install -r requirements.txt
+        ```
 
 3. Crear Base de datos
 
-    Para crear la base de datos puedes utilizar cualquier motor de base de datos (SQL / MySQL / Postgresql / MongoDB / CouchDB / Redis / MariaDB) o cualquier herramienta visual (MysqlWorbench o PgAdmin), solo debemos crear la base de datos y configurar nuestras variables de entorno, gracias a que create_engine de SQLAlchemy nos facilita una conexion segura utilizando la siguientes plantillas de ejemplo:
+    Para crear la base de datos puedes utilizar cualquier motor de base de datos (SQL / MySQL / Postgresql / MongoDB / CouchDB / Redis / MariaDB) o cualquier herramienta visual (MysqlWorbench o PgAdmin) [mas información como crear base de datos](https://blog.hubspot.es/website/como-crear-base-de-datos-mysql), solo debemos crear la base de datos y configurar nuestras variables de entorno, gracias a que create_engine de SQLAlchemy nos facilita una conexion segura utilizando la siguientes plantillas de ejemplo:
     ```
     postgresql://<usuario>:<contraseña>@<host>:<puerto>/<base_de_datos>
 

@@ -133,3 +133,6 @@ local
 .vscode
 .env
 .pylintrc
+Pipfile
+Pipfile.lock
+.lock
