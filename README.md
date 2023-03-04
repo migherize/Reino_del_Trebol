@@ -166,18 +166,18 @@ no se debe asignar Grimorio.
 
 ## Requisitos
 1. Python 3.10.7
-2. FastApi 0.92.0
-3. Pydantic 1.10.5
-4. SQLAlchemy 2.0.4
-
-5. IDE: Visual Studio 2022 / Visual Code / PyCharm
-6. Base de datos: SQL / MySQL / Postgresql / MongoDB / CouchDB / Redis / MariaDB
-7. Postman (para pruebas).
+2. Pip 23.0
+3. FastApi 0.92.0
+4. Pydantic 1.10.5
+5. SQLAlchemy 2.0.4
+6. IDE: Visual Studio 2022 / Visual Code / PyCharm
+7. Base de datos: SQL / MySQL / Postgresql / MongoDB / CouchDB / Redis / MariaDB
+8. Postman (para pruebas).
 ## Instalación
 
 #### Nota: Existen 2 formas de instalarlo: Entorno virtual o Docker.
 
-- #### Si deseas realizar la Instalacion ve al siguiente enlace [docker-academy](https://github.com/migherize/Reino_del_Trebol/tree/feature/docker-academy)
+- #### Si deseas realizar la Instalacion con Docker ve al siguiente enlace [docker-academy](https://github.com/migherize/Reino_del_Trebol/tree/feature/docker-academy)
 
 
 - Procedemos a instalar con Entorno Virtual
@@ -222,7 +222,7 @@ no se debe asignar Grimorio.
 
 3. Crear Base de datos
 
-    Para crear la base de datos puedes utilizar cualquier motor de base de datos (SQL / MySQL / Postgresql / MongoDB / CouchDB / Redis / MariaDB) o cualquier herramienta visual (MysqlWorbench o PgAdmin) [mas información como crear base de datos](https://blog.hubspot.es/website/como-crear-base-de-datos-mysql), solo debemos crear la base de datos y configurar nuestras variables de entorno, gracias a que create_engine de SQLAlchemy nos facilita una conexion segura utilizando la siguientes plantillas de ejemplo:
+    Para crear la base de datos puedes utilizar cualquier motor de base de datos (SQL / MySQL / Postgresql / MongoDB / CouchDB / Redis / MariaDB) o cualquier herramienta visual (MysqlWorbench o PgAdmin) [mas información como crear base de datos](https://blog.hubspot.es/website/como-crear-base-de-datos-mysql), solo debemos crear la base de datos (nombre de preferencia y vacia) y configurar nuestras variables de entorno, gracias a que create_engine de SQLAlchemy nos facilita una conexion segura utilizando la siguientes plantillas de ejemplo:
     ```
     postgresql://<usuario>:<contraseña>@<host>:<puerto>/<base_de_datos>
 
@@ -284,6 +284,11 @@ Para realizar test de prueba, en la carpeta app/test existen 2 opciones:
     ```
 
 2. Academy.postman_collection.json : el cual es una coleccion POSTMAN con todas las configuraciones para los endpoint.
+
+
+3. Diagrama de Caso de uso para cada Funcionalidad.
+
+![swagger FastApi](./diagrams/case_use.png)
 
 ## Contribución
 1. Fork del repositorio
