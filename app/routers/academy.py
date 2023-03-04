@@ -40,16 +40,8 @@ def application_for_admission(
     Envia la solicitud de ingreso a la academia de magia, es decir,
     el registro del estudiante a la academia.
 
-    Parámetros:
+    Args:
 
-        user_application (dict): Un Diccionario con datos en formato JSON.
-            {
-                "name": "string",
-                "surname": "string",
-                "id": "string",
-                "old": "int",
-                "magical_affinity": "string",
-            }
         User (dict): Un Diccionario con datos en formato JSON.
             {
                 "name": "string",
@@ -59,9 +51,23 @@ def application_for_admission(
                 "magical_affinity": "string",
             }
 
-    Retorna:
+    Valores validos:
+    * id = string alphanumerico máximo 10 caracteres.
+    * name = string solo letras a-z máximo 20 caracteres.
+    * surname = string solo letras a-z máximo 20 caracteres.
+    * old = entero de 2 digitos.
+    * magical_affinity = "Oscuridad", "Luz", "Fuego", "Agua", "Viento", "Tierra".
 
-        str: Un string con el estatus del registro del estudiante.
+    Returns:
+        dict: Diccionario con la solicitud de registro.
+
+        User (dict): Un Diccionario con datos en formato JSON.
+            {
+                "name": "string",
+                "magical_affinity": "string",
+                "grimorio": "string",
+                "status": "string",
+            }
     """
     logging.info("### Solicitud de registro ###")
     fullname = f"{user.name} {user.surname}"
@@ -99,7 +105,28 @@ def update_admission(
     """Actualizar solicitud de ingreso.
 
     Actualiza la solicitud de ingreso a la academia de magia, es decir,
-    la actualizacion del registro del estudiante a la academia.
+    la actualizacion de la solicitud de registro a la academia.
+
+    Args:
+
+        User (dict): Un Diccionario con datos en formato JSON.
+            {
+                "name": "string",
+                "surname": "string",
+                "id": "string",
+                "old": "int",
+                "magical_affinity": "string",
+            }
+
+    Valores validos:
+    * id = string alphanumerico máximo 10 caracteres.
+    * name = string solo letras a-z máximo 20 caracteres.
+    * surname = string solo letras a-z máximo 20 caracteres.
+    * old = entero de 2 digitos.
+    * magical_affinity = "Oscuridad", "Luz", "Fuego", "Agua", "Viento", "Tierra".
+
+    Returns:
+        string: mensaje de objeto actualizado.
 
     """
     logging.info("### Actualizar una solicitud de registro ###")
@@ -116,8 +143,17 @@ def update_status_admission(
 ) -> dict:
     """Actualizar estatus de solicitud.
 
-    Actualiza el estatus de la solicitud del estudiante a la academia.
+    Actualiza el estatus de la solicitud del registro a la academia.
+    estatus posibles: Pendiente y Acceptado
 
+    Args:
+        user_id (string): identicador unico de la solicitud del registro
+
+    Valores validos:
+    * id = string alphanumerico máximo 10 caracteres.
+
+    Returns:
+        string: mensaje de solicitud actualizada.
     """
     logging.info("### Actualizar estatus de solicitud de registro ###")
     db_item = crud.update_status(db_conn, user_id)
@@ -127,7 +163,7 @@ def update_status_admission(
 
     if db_item.status:
         return {
-            "Academia": f"Estudiante {db_item.id} estatu actualizado a {constants.STATUS_ACCEPTED}"
+            "Academia": f"Solicitud {db_item.id} estatus actualizado a {constants.STATUS_ACCEPTED}"
         }
 
 
@@ -135,11 +171,10 @@ def update_status_admission(
 def read_all_application(db_conn: Session = Depends(database.get_db)) -> list:
     """Consultar todas las solicitudes.
 
-    Funciona para traer todas las solicitudes de registro.
+    Funciona para traer todas las solicitudes de registro en la base de datos.
 
-    Retorna:
-
-        list: Un lista con todos los estudiantes de la academia.
+    Returns:
+        list: Un lista con todos las solicitudes de registro de la academia.
     """
     logging.info("### Ver todas las solicitudes de registro ###")
     data = db_conn.query(models_db.Applicant).all()
@@ -154,8 +189,16 @@ def read_assing_grimoire(
 ) -> dict:
     """Consultar asignaciones de Grimorios.
 
-    Ver asignacion de grimorios de la solicitud de ingreso.
+    Ver asignacion de grimorio de uuna solicitud de ingreso.
 
+    Args:
+        user_id (string): identicador unico de la solicitud del registro.
+
+    Valores validos:
+    * id = string alphanumerico máximo 10 caracteres.
+
+    Returns:
+        string: mensaje de grimorio asignado a la solicitud.
     """
     logging.info("### Consulta de Grimorio ###")
     db_item = crud.select_grimorio(db_conn, user_id)
@@ -172,8 +215,16 @@ def read_assing_grimoire(
 def delete_admission(user_id: str, db_conn: Session = Depends(database.get_db)) -> dict:
     """Eliminar solicitud de ingreso.
 
-    Borrar una solicitud de ingreso de un estudiante.
+    Borrar la solicitud de ingreso de un estudiante.
 
+    Args:
+        user_id (string): identicador unico de la solicitud del registro.
+
+    Valores validos:
+    * id = string alphanumerico máximo 10 caracteres.
+
+    Returns:
+        string: mensaje de solicitud id eliminada.
     """
     logging.info("### Eliminar Solicitud de ingreso ###")
     db_item = crud.delete_admission(db_conn, user_id)
