@@ -41,6 +41,9 @@ def test_home_page():
 
 
 def test_application_for_admission():
+    """
+    Test de prueba para el endpoint de solicitud de registro.
+    """
     response = client.post(
         "/queries/send-admission",
         headers=cabeceras_endpoint,
@@ -56,6 +59,9 @@ def test_application_for_admission():
 
 
 def test_update_admission():
+    """
+    Test de prueba para el endpoint de Actualizar solicitud de ingreso.
+    """
     response = client.put(
         "/queries/update-admission",
         headers=cabeceras_endpoint,
@@ -68,6 +74,9 @@ def test_update_admission():
 
 
 def test_update_status_admission():
+    """
+    Test de prueba para el endpoint de Actualizar estatus de solicitud.
+    """
     response = client.put(
         f"/queries/update-status-admission/{application_test['id']}",
         headers=cabeceras_endpoint,
@@ -79,6 +88,9 @@ def test_update_status_admission():
 
 
 def test_read_all_application():
+    """
+    Test de prueba para el endpoint de Consultar todas las solicitudes.
+    """
     response = client.get(
         "/queries/all-request-read-all-application",
         headers=cabeceras_endpoint,
@@ -87,6 +99,9 @@ def test_read_all_application():
 
 
 def test_read_assing_grimoire():
+    """
+    Test de prueba para el endpoint de Consultar asignaciones de Grimorios.
+    """
     response = client.get(
         f"/queries/read-assing-grimoire/{application_test['id']}",
         headers=cabeceras_endpoint,
@@ -115,6 +130,9 @@ def test_read_assing_grimoire():
 
 
 def test_delete_admission():
+    """
+    Test de prueba para el endpoint de Eliminar solicitud de ingreso.
+    """
     response = client.delete(
         f"/queries/delete/{application_test['id']}",
         headers=cabeceras_endpoint,

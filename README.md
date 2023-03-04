@@ -234,6 +234,23 @@ no se debe asignar Grimorio.
 2. Acceder a http://127.0.0.1:8000/docs
 2. Documentacion mas detallada http://127.0.0.1:8000/redoc
 
+## Test
+
+Para realizar test de prueba, en la carpeta app/test existen 2 opciones:
+
+1. test_FastApi.py : un test creado con pytest para consultar los endpoint de la academia. 
+    Usabilidad:
+
+    ```
+    pytest                      # ejecuta los 7 test
+    
+    or
+    
+    pytest -k test_name         # ejecuta los 1 test
+    ```
+
+2. Academy.postman_collection.json : el cual es una coleccion POSTMAN con todas las configuraciones para los endpoint.
+
 ## Contribución
 1. Fork del repositorio
 2. Crear una rama
