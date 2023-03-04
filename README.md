@@ -1,4 +1,4 @@
-# Reino_del_Trebol
+# Reino del Trebol
 
 Api construida con fastApi para simulador el mundo del Reino del Trebol, donde se requiere diseñar un sistema para una academia de magia.
 
@@ -56,12 +56,113 @@ no se debe asignar Grimorio.
 ![swagger FastApi](./diagrams/swagger.png)
 
 ## Endpoint
-1. application_for_admission (POST) -> Enviar solicitud de ingreso.
-2. update_admission (PUT) -> Actualizar solicitud de ingreso.
-3. update_status_admission (PUT) -> Actualizar estatus de solicitud.
-4. read_all_application (GET) -> Consultar todas las solicitudes.
-5. read_assing_grimoire (GET) -> Consultar asignaciones de Grimorios.
-6. delete_admission (DELETE) -> Eliminar solicitud de ingreso.
+## 1. application_for_admission (POST) 
+
+    Endpoint que envia la solicitud de ingreso a la academia de magia.
+
+    Envia la solicitud de ingreso a la academia de magia, es decir, el registro del estudiante a la academia.
+
+    Args:
+
+    User (dict): Un Diccionario con datos en formato JSON.
+        {
+            "name": "string",
+            "surname": "string",
+            "id": "string",
+            "old": "int",
+            "magical_affinity": "string",
+        }
+    Valores validos:
+
+    id = string alphanumerico máximo 10 caracteres.
+    name = string solo letras a-z máximo 20 caracteres.
+    surname = string solo letras a-z máximo 20 caracteres.
+    old = entero de 2 digitos.
+    magical_affinity = "Oscuridad", "Luz", "Fuego", "Agua", "Viento", "Tierra".
+    
+    Returns: dict: Diccionario con la solicitud de registro.
+
+    User (dict): Un Diccionario con datos en formato JSON.
+        {
+            "name": "string",
+            "magical_affinity": "string",
+            "grimorio": "string",
+            "status": "string",
+        }
+
+## 2. update_admission (PUT)
+
+    Actualizar solicitud de ingreso.
+
+    Actualiza la solicitud de ingreso a la academia de magia, es decir, la actualizacion de la solicitud de registro a la academia.
+
+    Args:
+
+    User (dict): Un Diccionario con datos en formato JSON.
+        {
+            "name": "string",
+            "surname": "string",
+            "id": "string",
+            "old": "int",
+            "magical_affinity": "string",
+        }
+    Valores validos:
+
+    id = string alphanumerico máximo 10 caracteres.
+    name = string solo letras a-z máximo 20 caracteres.
+    surname = string solo letras a-z máximo 20 caracteres.
+    old = entero de 2 digitos.
+    magical_affinity = "Oscuridad", "Luz", "Fuego", "Agua", "Viento", "Tierra".
+
+    Returns: string: mensaje de objeto actualizado.
+
+## 3. update_status_admission (PUT)
+
+    Actualizar estatus de solicitud.
+
+    Actualiza el estatus de la solicitud del registro a la academia. estatus posibles: Pendiente y Acceptado
+
+    Args: user_id (string): identicador unico de la solicitud del registro
+
+    Valores validos:
+
+    id = string alphanumerico máximo 10 caracteres.
+    Returns: string: mensaje de solicitud actualizada.
+
+## 4. read_all_application (GET)
+    Consultar todas las solicitudes.
+
+    Funciona para traer todas las solicitudes de registro en la base de datos.
+
+    Returns: list: Un lista con todos las solicitudes de registro de la academia.
+
+
+## 5. read_assing_grimoire (GET)
+
+    Consultar asignaciones de Grimorios.
+
+    Ver asignacion de grimorio de uuna solicitud de ingreso.
+
+    Args: user_id (string): identicador unico de la solicitud del registro.
+
+    Valores validos:
+
+    id = string alphanumerico máximo 10 caracteres.
+    Returns: string: mensaje de grimorio asignado a la solicitud.
+
+## 6. delete_admission (DELETE)
+
+    Eliminar solicitud de ingreso.
+
+    Borrar la solicitud de ingreso de un estudiante.
+
+    Args: user_id (string): identicador unico de la solicitud del registro.
+
+    Valores validos:
+
+    id = string alphanumerico máximo 10 caracteres.
+    Returns: string: mensaje de solicitud id eliminada.
+
 
 ## Requisitos
 1. Python 3.10.7
@@ -84,21 +185,32 @@ no se debe asignar Grimorio.
     pipenv install
     pipenv install -r requirements.txt
     ```
-3. Variables de entorno
+
+3. Crear Base de datos
+
+    Para crear la base de datos puedes utilizar cualquier motor de base de datos (SQL / MySQL / Postgresql / MongoDB / CouchDB / Redis / MariaDB) o cualquier herramienta visual (MysqlWorbench o PgAdmin), solo debemos crear la base de datos y configurar nuestras variables de entorno, gracias a que create_engine de SQLAlchemy nos facilita una conexion segura utilizando la siguientes plantillas de ejemplo:
+    ```
+    postgresql://<usuario>:<contraseña>@<host>:<puerto>/<base_de_datos>
+
+    mysql+pymysql://<usuario>:<contraseña>@<host>:<puerto>/<base_de_datos>
+    ```
+    Para la cual esta configurado la siguientes variables de entorno.
+
+4. Variables de entorno para conec
     - `name_serviceDB`: El host de la base de datos utilizada por la aplicación.
     - `DB`: El puerto de la base de datos utilizada por la aplicación.
     - `userDB`: Usuario de base de datos utilizada por la aplicación.
     - `passwordDB`: Contraseña de base de datos utilizada por la aplicación.
     - `nameBD`: Nombre de la base de datos utilizada por la aplicación.
     - `port`: El puerto de la base de datos utilizada por la aplicación.
-
-    #### Ejemplo .env
+    
+    
+    #### Crear archivo .env
     ```
     touch .env
     ```
+    #### Ejemplo .env
     ```
-    # .env
-
     DB = "mysql+pymysql"
     userDB="root"
     passwordDB="password"
@@ -106,7 +218,13 @@ no se debe asignar Grimorio.
     nameBD="name_database"
     port="3306"
     ```
+    #### Formato de conexion de ejemplo
+    ```
+    # create_engine
 
+    postgresql://<usuario>:<contraseña>@<host>:<puerto>/<base_de_datos>
+
+    ```
 ## Uso
 1. Ejecutar el proyecto
 
