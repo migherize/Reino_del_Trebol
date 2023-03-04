@@ -1,0 +1,188 @@
+{
+	"info": {
+		"_postman_id": "aea3deda-26dd-400b-9dbc-3dfdf442d9d2",
+		"name": "Academy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19443922"
+	},
+	"item": [
+		{
+			"name": "application_for_admission",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Test\",\n  \"surname\": \"Prueba\",\n  \"id\": \"id1\",\n  \"old\": 10,\n  \"magical_affinity\": \"Oscuridad\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/queries/send-admission",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"queries",
+						"send-admission"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update_admission",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Test\",\n  \"surname\": \"Prueba update\",\n  \"id\": \"id1\",\n  \"old\": 10,\n  \"magical_affinity\": \"Oscuridad\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/queries/update-admission/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"queries",
+						"update-admission",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update_status_admission",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8000/queries/update-status-admission/id1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"queries",
+						"update-status-admission",
+						"id1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "read_all_application",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/queries/all-request-read-all-application",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"queries",
+						"all-request-read-all-application"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "def read_assing_grimoire",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/queries/read-assing-grimoire/id1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"queries",
+						"read-assing-grimoire",
+						"id1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete_admission",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/queries/delete/id1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"queries",
+						"delete",
+						"id1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

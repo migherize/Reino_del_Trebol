@@ -1,6 +1,10 @@
 # Reino_del_Trebol
 
-Api construida con fastApi para simulador el mundo del Reino del Trebol, donde se requiere diseñar un sistema para la academia de magia.
+Api construida con fastApi para simulador el mundo del Reino del Trebol, donde se requiere diseñar un sistema para una academia de magia.
+
+![FastApi](./diagrams/fastapi.png)
+
+### Ambiente: 
 
 En el Reino del Trébol, El Rey Mago requiere diseñar un sistema para la academia de magia; este debe realizar el registro de solicitud del estudiante y la asignación aleatoria de su Grimorio. 
 
@@ -47,20 +51,27 @@ Las solicitudes de ingreso deben indicar como mínimo los siguientes datos del a
 Al incumplir cualquiera de estos criterios automáticamente la solicitud queda rechazada y
 no se debe asignar Grimorio.
 
-## Funcionalidades (Endpoint)
+## Funcionalidades
 
-1. application_for_admission
-2. update_admission
-3. update_status_admission
-4. read_all_application
-5. read_assing_grimoire
-6. delete_admission
+![swagger FastApi](./diagrams/swagger.png)
+
+## Endpoint
+1. application_for_admission (POST) -> Enviar solicitud de ingreso.
+2. update_admission (PUT) -> Actualizar solicitud de ingreso.
+3. update_status_admission (PUT) -> Actualizar estatus de solicitud.
+4. read_all_application (GET) -> Consultar todas las solicitudes.
+5. read_assing_grimoire (GET) -> Consultar asignaciones de Grimorios.
+6. delete_admission (DELETE) -> Eliminar solicitud de ingreso.
 
 ## Requisitos
 1. Python 3.10.7
 2. FastApi 0.92.0
-3. pydantic 1.10.5
+3. Pydantic 1.10.5
 4. SQLAlchemy 2.0.4
+
+5. IDE: Visual Studio 2022 / Visual Code / PyCharm
+6. Base de datos: SQL / MySQL / Postgresql / MongoDB / CouchDB / Redis / MariaDB
+7. Postman (para pruebas).
 ## Instalación
 1. Clonar el repositorio
     ```
@@ -73,6 +84,28 @@ no se debe asignar Grimorio.
     pipenv install
     pipenv install -r requirements.txt
     ```
+3. Variables de entorno
+    - `name_serviceDB`: El host de la base de datos utilizada por la aplicación.
+    - `DB`: El puerto de la base de datos utilizada por la aplicación.
+    - `userDB`: Usuario de base de datos utilizada por la aplicación.
+    - `passwordDB`: Contraseña de base de datos utilizada por la aplicación.
+    - `nameBD`: Nombre de la base de datos utilizada por la aplicación.
+    - `port`: El puerto de la base de datos utilizada por la aplicación.
+
+    #### Ejemplo .env
+    ```
+    touch .env
+    ```
+    ```
+    # .env
+
+    DB = "mysql+pymysql"
+    userDB="root"
+    passwordDB="password"
+    name_serviceDB="localhost"
+    nameBD="name_database"
+    port="3306"
+    ```
 
 ## Uso
 1. Ejecutar el proyecto
@@ -81,6 +114,7 @@ no se debe asignar Grimorio.
     uvicorn app.main:app --reload
     ```
 2. Acceder a http://127.0.0.1:8000/docs
+2. Documentacion mas detallada http://127.0.0.1:8000/redoc
 
 ## Contribución
 1. Fork del repositorio
