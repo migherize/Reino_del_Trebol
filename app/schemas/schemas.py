@@ -25,11 +25,11 @@ class Grimorios(BaseModel):
         ▪ Desesperación - Trébol de 5 hojas.
 
     Atributos:
-        ▪ Lista [Tuplas[]]: una lista de tuplas con los Niveles de Grimorios.
+        ▪ Tuple[str, str]: una lista de tuplas con string con los Niveles de Grimorios.
 
     """
 
-    tipos: List[Tuple[str, str]]
+    tipos: Tuple[str, str]
 
 
 class Admission(BaseModel):
@@ -115,6 +115,7 @@ class ResultJson(BaseModel):
 
     name: str
     magical_affinity: str
+    grimorio: str
     status: str
 
     def show_json(self) -> dict:
@@ -124,6 +125,7 @@ class ResultJson(BaseModel):
         json = {
             "name": self.name,
             "magical_affinity": self.magical_affinity,
+            "grimorio": self.grimorio,
             "status": self.status,
         }
         return json

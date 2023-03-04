@@ -39,7 +39,7 @@ def update_user(db_conn: Session, user: schemas.Admission):
     return item
 
 
-def create_user(db_conn: Session, user: schemas.Admission):
+def create_user(db_conn: Session, user: schemas.Admission, grimorio: str):
     """
     Crea un estudiante en la db Academy
     """
@@ -49,6 +49,7 @@ def create_user(db_conn: Session, user: schemas.Admission):
         id=user.id,
         old=user.old,
         magical_affinity=user.magical_affinity,
+        grimorio=grimorio,
         status=constants.STATUS_INPUT,
     )
 
@@ -67,6 +68,14 @@ def update_status(db_conn: Session, user_id: str):
     db_conn.add(item)
     db_conn.commit()
     db_conn.refresh(item)
+    return item
+
+
+def select_grimorio(db_conn: Session, user_id: str):
+    """
+    Consultar grimorio de una solicitud de registro.
+    """
+    item = search_and_verify(db_conn, user_id)
     return item
 
 

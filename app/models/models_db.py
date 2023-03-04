@@ -5,7 +5,7 @@ author: Miguel Herize
 mail: migherize@gmail.com
 """
 
-from sqlalchemy import Column, Integer, String, Boolean
+from sqlalchemy import Column, Integer, String, Boolean, Tuple as SqlTuple
 from app.models.database import Base
 
 
@@ -20,4 +20,5 @@ class Applicant(Base):
     surname = Column(String(20))
     old = Column(Integer)
     magical_affinity = Column(String(20))
+    grimorio = Column(String(100))
     status = Column(Boolean, default=True)

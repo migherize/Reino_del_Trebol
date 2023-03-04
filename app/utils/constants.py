@@ -24,7 +24,7 @@ STATUS_UPDATE = True
 STATUS_PENDIND = "Pendiente"
 STATUS_ACCEPTED = "Acceptado"
 
-list_grimorios = [
+Tupla_grimorios = [
     ("Sinceridad", "Trébol de 1 hoja"),
     ("Esperanza", "Trébol de 2 hojas"),
     ("Amor", "Trébol de 3 hojas"),

@@ -5,6 +5,7 @@ author: Miguel Herize
 mail: migherize@gmail.com
 """
 
+import random
 import logging
 import json
 from fastapi import APIRouter, Depends, HTTPException
@@ -61,13 +62,19 @@ def application_for_admission(
     fullname = f"{user.name} {user.surname}"
     logging.info("Nombre: %s", fullname)
 
+    # Assing grimorio
+    random_tuple = random.choice(constants.Tupla_grimorios)
+    logging.info("Grimorio random: %s , %s", random_tuple[0], random_tuple[1])
+    grimorio = f"{random_tuple[0]}, {random_tuple[1]}"
+
     try:
-        db_item = crud.create_user(db_conn, user)
+        db_item = crud.create_user(db_conn, user, grimorio)
         logging.info("db: %s", db_item)
 
         result = schemas.ResultJson(
             name=fullname,
-            magical_affinity=str(user.magical_affinity),
+            magical_affinity=str(db_item.magical_affinity),
+            grimorio=db_item.grimorio,
             status=constants.STATUS_PENDIND,
         )
         my_json = result.show_json()
@@ -131,14 +138,22 @@ def read_all_application(db_conn: Session = Depends(database.get_db)) -> list:
     return data
 
 
-@clover_kingdom.get("/read-assing-grimoire")
-def read_assing_grimoire():
+@clover_kingdom.get("/read-assing-grimoire/{user_id}")
+def read_assing_grimoire(
+    user_id: str, db_conn: Session = Depends(database.get_db)
+) -> dict:
     """Consultar asignaciones de Grimorios.
 
-    Ver asignacion de grimorios de un estudiante.
+    Ver asignacion de grimorios de la solicitud de ingreso.
 
     """
-    return {"Application": "Assing Grimoire"}
+    db_item = crud.select_grimorio(db_conn, user_id)
+    logging.info("Grimorio: %s", db_item.grimorio)
+
+    if db_item:
+        return {
+            "Academia": f"La solicitud {db_item.id} tiene grimorio {db_item.grimorio}."
+        }
 
 
 @clover_kingdom.delete("/delete/{user_id}")
