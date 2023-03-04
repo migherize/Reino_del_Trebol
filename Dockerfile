@@ -13,4 +13,4 @@ WORKDIR /app
 
 COPY ./src/ /app
 
-#CMD /opt/venv/bin/uvicorn app.main:app --host 0.0.0.0 --port 8080 --root-path="${PREFIX_API}"
+CMD /opt/venv/bin/uvicorn app.main:app --host 0.0.0.0 --port 8080 --root-path="${PREFIX_API}"
