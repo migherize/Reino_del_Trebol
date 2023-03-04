@@ -1,0 +1,26 @@
+version: "3.3"
+services:
+  academy-magic:
+    container_name: academy-magic
+    restart: "always"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: tail -f /dev/null
+    env_file:
+      - .env
+    expose:
+      - 8000
+    ports:
+      - "8000:8080"
+    volumes:
+      - "./src/:/app"
+    networks:
+      - dev-net
+    environment:
+      - PREFIX_API=/
+
+networks:
+  dev-net:
+    external:
+      name: dev-net
